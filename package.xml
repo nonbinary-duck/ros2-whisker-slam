@@ -3,6 +3,7 @@
 <package format="2">
   <name>simple_ros2_test</name>
   <version>0.18.0</version>
+  <!-- (this file is also taken from (nearby) https://github.com/ros2/examples/blob/iron/rclcpp/topics/minimal_subscriber/lambda.cpp) -->
   <description>Examples of minimal publisher nodes</description>
   <maintainer email="no@email.com">name</maintainer>
 

@@ -2,12 +2,14 @@ cmake_minimum_required(VERSION 3.12)
 
 set(PROJ_NAME simple_ros2_test)
 
+# This is my standard cmake file from https://github.com/nonbinary-duck/hacky-cmake-cpp-template
+
 # Set the compiler flags
 # Use Wall to give good feedback and use pthread so we can use threads
 # We need POSIX Threads (Pthreads), a standard for threads, since C++ doesn't have a native implementation of it
 # Wno-reorder disables the reorder warning (because it doesn't seem to affect this program)
 if (WIN32) # WIN32 is set to true when the target system is windows, including 64-bit according to the CMake docs
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}") # Warnings in MSVC are spammy, annoying and incoherent, I'd never willingly add more of them
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic -Wno-reorder")
 endif()

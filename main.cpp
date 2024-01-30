@@ -6,6 +6,7 @@ using std::cout, std::cin, std::endl;
 
 #include "src/utils.hpp"
 #include "src/simple_controller.hpp"
+#include "src/simple_mapper.hpp"
 
 
 /**
@@ -17,10 +18,13 @@ using std::cout, std::cin, std::endl;
  */
 int main(int argc, char *argv[])
 {
-	//cout << "Hello, world!! I'm simple-ros2-test :)" << endl;
+	// cout << "Hello, world!! I'm simple-ros2-test :)" << endl;
 
+	// init spin and shutdown statements taken from: https://docs.ros.org/en/iron/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Cpp-Publisher-And-Subscriber.html
 	rclcpp::init(argc, argv);
-	rclcpp::spin( std::make_shared<simple_ros2_test::SensorSubscriber>() );
+	// rclcpp::spin( std::make_shared<simple_ros2_test::SimpleMap>() );
+	// Give ROS2 our node
+	rclcpp::spin( std::make_shared<simple_ros2_test::SimpleController>() );
 	rclcpp::shutdown();
 
 	
