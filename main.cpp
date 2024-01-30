@@ -22,9 +22,9 @@ int main(int argc, char *argv[])
 
 	// init spin and shutdown statements taken from: https://docs.ros.org/en/iron/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Cpp-Publisher-And-Subscriber.html
 	rclcpp::init(argc, argv);
-	// rclcpp::spin( std::make_shared<simple_ros2_test::SimpleMap>() );
+	// rclcpp::spin( std::make_shared<ros2_whisker_slam::SimpleMap>() );
 	// Give ROS2 our node
-	rclcpp::spin( std::make_shared<simple_ros2_test::SimpleController>() );
+	rclcpp::spin( std::make_shared<ros2_whisker_slam::SimpleController>() );
 	rclcpp::shutdown();
 
 	

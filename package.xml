@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="2">
-  <name>simple_ros2_test</name>
+  <name>ros2_whisker_slam</name>
   <version>0.18.0</version>
   <!-- (this file is also taken from (nearby) https://github.com/ros2/examples/blob/iron/rclcpp/topics/minimal_subscriber/lambda.cpp) -->
   <description>Examples of minimal publisher nodes</description>

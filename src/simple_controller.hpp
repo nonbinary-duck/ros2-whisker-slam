@@ -20,7 +20,7 @@
 #include "std_msgs/msg/bool.hpp"
 #include "std_msgs/msg/float32.hpp"
 
-namespace simple_ros2_test
+namespace ros2_whisker_slam
 {
     /**
      * @brief An extremely rudimentary controller for our little bubble robot
@@ -123,6 +123,6 @@ namespace simple_ros2_test
     };
 
 
-} // End namespace simple-ros2-test
+} // End namespace ros2_whisker_slam
 
 #endif // H_599955_SRC_SIMPLE_CONTROLLER

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 
-set(PROJ_NAME simple_ros2_test)
+set(PROJ_NAME ros2_whisker_slam)
 
 # This is my standard cmake file from https://github.com/nonbinary-duck/hacky-cmake-cpp-template
 
