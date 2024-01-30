@@ -30,7 +30,7 @@ namespace ros2_whisker_slam
         public:
             // Do all of the setup for our node in a nice and untidy inline constructor,
             // entirely defeating the organisational power provided by objects
-            inline SimpleController() : Node("simple_bubble_sensor_subscriber")
+            inline SimpleController() : Node("simple_controller")
             {
                 // Setup the listener for the simulation time
                 this->simTimeSubscription = this->create_subscription< std_msgs::msg::Float32 >(
