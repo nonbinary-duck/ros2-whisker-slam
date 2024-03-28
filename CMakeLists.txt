@@ -21,6 +21,8 @@ project(${PROJ_NAME})
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(interfaces REQUIRED)
+find_package(sensor_msgs REQUIRED)
 
 # Give directories where header files are located
 # Technically not needed as we are an executable application and main links to everything we need for us
@@ -30,7 +32,7 @@ include_directories(
 
 # Add main.cpp to the executable
 add_executable(${PROJ_NAME} main.cpp)
-ament_target_dependencies(${PROJ_NAME} rclcpp std_msgs)
+ament_target_dependencies(${PROJ_NAME} rclcpp std_msgs sensor_msgs interfaces)
 
 # Inlcude source files from the src dir
 add_subdirectory(${PROJECT_SOURCE_DIR}/src)
