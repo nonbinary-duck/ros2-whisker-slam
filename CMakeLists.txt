@@ -26,9 +26,9 @@ find_package(sensor_msgs REQUIRED)
 
 # Give directories where header files are located
 # Technically not needed as we are an executable application and main links to everything we need for us
-include_directories(
-    ${PROJECT_SOURCE_DIR}/src
-)
+# include_directories(
+#     ${PROJECT_SOURCE_DIR}/src
+# )
 
 # Add main.cpp to the executable
 add_executable(${PROJ_NAME} main.cpp)
@@ -38,7 +38,7 @@ ament_target_dependencies(${PROJ_NAME} rclcpp std_msgs sensor_msgs interfaces)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src)
 
 # Use c++ 23 if supported
-set_property(TARGET ${PROJ_NAME} PROPERTY CXX_STANDARD 23)
+set_property(TARGET ${PROJ_NAME} PROPERTY CXX_STANDARD 20)
 
 
 install(TARGETS

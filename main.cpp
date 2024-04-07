@@ -6,7 +6,6 @@ using std::cout, std::cin, std::endl;
 
 #include "src/utils.hpp"
 #include "src/simple_controller.hpp"
-#include "src/simple_mapper.hpp"
 
 
 /**
