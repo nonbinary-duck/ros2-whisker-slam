@@ -13,6 +13,7 @@
 
 
 #include <iostream>
+#include <random>
 #include <memory>
 #include <string>
 
@@ -34,6 +35,10 @@ namespace ros2_whisker_slam
             // entirely defeating the organisational power provided by objects
             inline SimpleController() : Node("simple_controller")
             {
+                // Seed our random number generator with non-deterministic random values
+                std::random_device ndRand;
+                this->rng.seed(ndRand());
+                
                 // Setup the listener for the simulation time
                 this->simTimeSubscription = this->create_subscription< std_msgs::msg::Float32 >(
                     // The topic to subscribe to
@@ -63,7 +68,7 @@ namespace ros2_whisker_slam
                         cmdVel.rr = 0.5; cmdVel.rl = 0.5;
 
                         // If we've not detected an impact
-                        if (this->simTime - this->previousImpact > SimpleController::IMPACT_ADJUST_TIME)
+                        if (this->simTime - this->previousImpact > this->random_IMPACT_ADJUST_TIME)
                         {
                             // Check if we're colliding with something
                             for (size_t i = 0; i < msg->ranges.size(); i++)
@@ -76,7 +81,10 @@ namespace ros2_whisker_slam
                                     this->previousImpact = this->simTime;
                                     
                                     RCLCPP_INFO(this->get_logger(), "Bumped into the %s side", (this->correctLeft)? "right" : "left" );
-                                    RCLCPP_INFO(this->get_logger(), "Reversing for %f seconds", (this->previousImpact + SimpleController::IMPACT_ADJUST_TIME * 0.25) - this->simTime );
+                                    RCLCPP_INFO(this->get_logger(), "Reversing for %f seconds", (this->previousImpact + this->random_IMPACT_ADJUST_TIME * 0.25) - this->simTime );
+
+                                    // Randomise our impact adjust time
+                                    this->random_IMPACT_ADJUST_TIME = SimpleController::IMPACT_ADJUST_TIME - 1.0 + ((float)(this->rng() % 200) / 200.0);
                                     
                                     // Begin reversing
                                     cmdVel.fl = -0.5; cmdVel.fr = -0.5;
@@ -86,12 +94,22 @@ namespace ros2_whisker_slam
                                 // If not, continue to move forward
                             }
                         }
+                        else if (this->simTime - this->previousImpact < SimpleController::IMPACT_FREEZE_TIME)
+                        {
+                            // Do nothing...
+                        }
+                        else if (this->simTime - this->previousImpact < SimpleController::IMPACT_DELAY_TIME)
+                        {
+                            RCLCPP_INFO(this->get_logger(), "Pausing %f seconds", (this->previousImpact + SimpleController::IMPACT_DELAY_TIME) - this->simTime );
+                            cmdVel.fl = 0.0; cmdVel.fr = 0.0;
+                            cmdVel.rr = 0.0; cmdVel.rl = 0.0;
+                        }
                         else
                         {
                             // If we've in the first half of our impact time, move backward
-                            if (this->simTime - this->previousImpact < (SimpleController::IMPACT_ADJUST_TIME * 0.25))
+                            if (this->simTime - this->previousImpact < (this->random_IMPACT_ADJUST_TIME * 0.25))
                             {
-                                RCLCPP_INFO(this->get_logger(), "Reversing for %f seconds", (this->previousImpact + SimpleController::IMPACT_ADJUST_TIME * 0.25) - this->simTime );
+                                RCLCPP_INFO(this->get_logger(), "Reversing for %f seconds", (this->previousImpact + this->random_IMPACT_ADJUST_TIME * 0.25) - this->simTime );
 
                                 cmdVel.fl = -0.5; cmdVel.fr = -0.5;
                                 cmdVel.rr = -0.5; cmdVel.rl = -0.5;
@@ -99,7 +117,7 @@ namespace ros2_whisker_slam
                             // Then in the latter half, rotate
                             else
                             {
-                                RCLCPP_INFO(this->get_logger(), "Turning %s for %f seconds", (this->correctLeft)? "left" : "right", (this->previousImpact + SimpleController::IMPACT_ADJUST_TIME) - this->simTime );
+                                RCLCPP_INFO(this->get_logger(), "Turning %s for %f seconds", (this->correctLeft)? "left" : "right", (this->previousImpact + this->random_IMPACT_ADJUST_TIME) - this->simTime );
 
                                 if (this->correctLeft)
                                 {
@@ -183,7 +201,13 @@ namespace ros2_whisker_slam
             // Should we turn left or right?
             bool  correctLeft = false;
             // Make sure we evaluate this at compile time
-            constexpr static float IMPACT_ADJUST_TIME = 4.0;
+            constexpr static float IMPACT_FREEZE_TIME  = 0.15;
+            constexpr static float IMPACT_DELAY_TIME   = 0.5 + IMPACT_FREEZE_TIME;
+            constexpr static float IMPACT_ADJUST_TIME  = 4.0 + IMPACT_DELAY_TIME;
+            float random_IMPACT_ADJUST_TIME = IMPACT_ADJUST_TIME;
+
+            // The random engine
+            std::mt19937 rng;
     };
 
 
