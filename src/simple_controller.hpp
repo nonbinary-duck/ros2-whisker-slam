@@ -76,7 +76,7 @@ namespace ros2_whisker_slam
                                 if (msg->ranges.at(i) != 0.0)
                                 {
                                     // If we've bumped into left, correct right
-                                    this->correctLeft = i > 2;
+                                    this->correctLeft = i < 2;
                                     // Record this impact
                                     this->previousImpact = this->simTime;
                                     
