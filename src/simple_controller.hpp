@@ -107,7 +107,7 @@ namespace ros2_whisker_slam
                         else
                         {
                             // If we've in the first half of our impact time, move backward
-                            if (this->simTime - this->previousImpact < (this->random_IMPACT_ADJUST_TIME * 0.25))
+                            if (this->simTime - this->previousImpact < (this->random_IMPACT_ADJUST_TIME * 0.1667))
                             {
                                 RCLCPP_INFO(this->get_logger(), "Reversing for %f seconds", (this->previousImpact + this->random_IMPACT_ADJUST_TIME * 0.25) - this->simTime );
 
@@ -121,13 +121,13 @@ namespace ros2_whisker_slam
 
                                 if (this->correctLeft)
                                 {
-                                    cmdVel.fl = -0.6; cmdVel.fr =  0.6;
-                                    cmdVel.rr =  0.6; cmdVel.rl = -0.6;
+                                    cmdVel.fl = -0.7; cmdVel.fr =  0.7;
+                                    cmdVel.rr =  0.7; cmdVel.rl = -0.7;
                                 }
                                 else
                                 {
-                                    cmdVel.fl =  0.6; cmdVel.fr = -0.6;
-                                    cmdVel.rr = -0.6; cmdVel.rl =  0.6;
+                                    cmdVel.fl =  0.7; cmdVel.fr = -0.7;
+                                    cmdVel.rr = -0.7; cmdVel.rl =  0.7;
                                 }
                             }
                         }
