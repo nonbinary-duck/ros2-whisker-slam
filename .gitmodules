@@ -1,3 +1,3 @@
-[submodule "submodules/ros2-interfaces"]
-	path = submodules/ros2-interfaces
+[submodule "packages/ros2-interfaces"]
+	path = packages/ros2-interfaces
 	url = ../ros2-interfaces.git
