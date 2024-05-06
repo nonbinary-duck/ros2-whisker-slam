@@ -1,3 +1,4 @@
+# Version requirement explanation:
 # New in version 3.11: The source files can be omitted if they are added later using target_sources().
 # New in version 3.20 cxx_std_23
 # New in version 3.21 c_std_23
