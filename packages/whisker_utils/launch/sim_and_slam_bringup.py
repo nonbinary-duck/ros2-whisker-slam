@@ -93,41 +93,41 @@ def generate_launch_description():
         )
     );
 
-    # # Run the Nav2 stack
-    # ld.add_action(
-    #     IncludeLaunchDescription(
-    #         PythonLaunchDescriptionSource([
-    #             PathJoinSubstitution([
-    #                 FindPackageShare("nav2_bringup"),
-    #                 "launch",
-    #                 "navigation_launch.py"
-    #             ])
-    #         ]),
-    #         launch_arguments={
-    #             "use_sim_time": "True",
-    #             "params_file": os.path.join( package_dir, "params", "nav2_params.yaml" )
-    #         }.items()
-    #     )
-    # );
+    # Run the Nav2 stack
+    ld.add_action(
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([
+                PathJoinSubstitution([
+                    FindPackageShare("nav2_bringup"),
+                    "launch",
+                    "navigation_launch.py"
+                ])
+            ]),
+            launch_arguments={
+                "use_sim_time": "True",
+                "params_file": os.path.join( package_dir, "params", "nav2_params.yaml" )
+            }.items()
+        )
+    );
 
-    # # Run rviz
-    # ld.add_action(
-    #     Node(
-    #         package="rviz2",
-    #         executable="rviz2",
-    #         arguments=[
-    #             "-d",
-    #             os.path.join( package_dir, "rviz", "mapping.rviz" )
-    #         ]
-    #     )
-    # );
+    # Run rviz
+    ld.add_action(
+        Node(
+            package="rviz2",
+            executable="rviz2",
+            arguments=[
+                "-d",
+                os.path.join( package_dir, "rviz", "mapping.rviz" )
+            ]
+        )
+    );
 
-    # # Run Coppelia
-    # ld.add_action(
-    #     ExecuteProcess(
-    #         cmd= [ os.path.join( coppelia_path, "coppeliaSim" ), "-f", os.path.join( package_dir, "coppelia", "whisker_scene.ttt" ) ]
-    #     )
-    # );
+    # Run Coppelia
+    ld.add_action(
+        ExecuteProcess(
+            cmd= [ os.path.join( coppelia_path, "coppeliaSim" ), "-f", os.path.join( package_dir, "coppelia", "whisker_scene.ttt" ) ]
+        )
+    );
 
     # Return our launch description we've generated
     return ld;
