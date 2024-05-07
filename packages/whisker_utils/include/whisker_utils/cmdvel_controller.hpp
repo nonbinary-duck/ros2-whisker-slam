@@ -24,7 +24,7 @@
 namespace ros2_whisker_slam
 {
     /**
-     * @brief An extremely rudimentary controller for our little bubble robot
+     * @brief A rudimentary controller for our little bubble robot
      */
     class CMDVelController : public rclcpp::Node
     {

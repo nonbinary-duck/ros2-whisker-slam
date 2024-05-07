@@ -9,7 +9,7 @@ from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, Exec
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import PathJoinSubstitution, LaunchConfiguration, PythonExpression
 from launch_ros.actions import Node
-from launch.conditions import IfCondition
+from launch.conditions import IfCondition, UnlessCondition
 
 #
 # Launch file based on the substitutions tutorial: https://docs.ros.org/en/humble/Tutorials/Intermediate/Launch/Using-Substitutions.html
@@ -23,6 +23,17 @@ def generate_launch_description():
 
     # Initialise a launch description object to add to
     ld = LaunchDescription();
+
+    # Use different SLAM setup for ground-truth LiDAR and whisker
+    use_whisker_params_arg = DeclareLaunchArgument(
+        "use_whisker_params",
+        default_value="True",
+        description="If the parameters for slam_toolbox should use the whisker ones or not"
+    );
+    ld.add_action(use_whisker_params_arg);
+
+    # Let us use this value
+    use_whisker_params = LaunchConfiguration("use_whisker_params");
 
 
     # Get the path to coppelia simulate
@@ -40,7 +51,7 @@ def generate_launch_description():
         )
     );
 
-    # Launch SLAM
+    # Launch SLAM (if using whisker)
     ld.add_action(
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([
@@ -52,46 +63,71 @@ def generate_launch_description():
             ]),
             launch_arguments={
                 "use_sim_time": "True",
-                "slam_params_file": os.path.join( package_dir, "params", "mapper_params_online_sync.yaml" )
-            }.items()
+                "slam_params_file": os.path.join( package_dir, "params", "mapper_params_online_async.yaml" )
+            }.items(),
+            # Use this launcher if we're using the whisker
+            condition=IfCondition(
+                PythonExpression([ use_whisker_params ])
+            )
         )
     );
 
-    # Run the Nav2 stack
+    # Launch SLAM (if NOT using whisker)
     ld.add_action(
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([
                 PathJoinSubstitution([
-                    FindPackageShare("nav2_bringup"),
+                    FindPackageShare("slam_toolbox"),
                     "launch",
-                    "navigation_launch.py"
+                    "online_async_launch.py"
                 ])
             ]),
             launch_arguments={
                 "use_sim_time": "True",
-                "params_file": os.path.join( package_dir, "params", "nav2_params.yaml" )
-            }.items()
+                "slam_params_file": os.path.join( package_dir, "params", "real_lidar_mapper_params_online_async.yaml" )
+            }.items(),
+            # Use this launcher if we're NOT using the whisker
+            condition=UnlessCondition(
+                PythonExpression([ use_whisker_params ])
+            )
         )
     );
 
-    # Run rviz
-    ld.add_action(
-        Node(
-            package="rviz2",
-            executable="rviz2",
-            arguments=[
-                "-d",
-                os.path.join( package_dir, "rviz", "mapping.rviz" )
-            ]
-        )
-    );
+    # # Run the Nav2 stack
+    # ld.add_action(
+    #     IncludeLaunchDescription(
+    #         PythonLaunchDescriptionSource([
+    #             PathJoinSubstitution([
+    #                 FindPackageShare("nav2_bringup"),
+    #                 "launch",
+    #                 "navigation_launch.py"
+    #             ])
+    #         ]),
+    #         launch_arguments={
+    #             "use_sim_time": "True",
+    #             "params_file": os.path.join( package_dir, "params", "nav2_params.yaml" )
+    #         }.items()
+    #     )
+    # );
 
-    # Run Coppelia
-    ld.add_action(
-        ExecuteProcess(
-            cmd= [ os.path.join( coppelia_path, "coppeliaSim" ), "-f", os.path.join( package_dir, "coppelia", "whisker_scene.ttt" ) ]
-        )
-    )
+    # # Run rviz
+    # ld.add_action(
+    #     Node(
+    #         package="rviz2",
+    #         executable="rviz2",
+    #         arguments=[
+    #             "-d",
+    #             os.path.join( package_dir, "rviz", "mapping.rviz" )
+    #         ]
+    #     )
+    # );
+
+    # # Run Coppelia
+    # ld.add_action(
+    #     ExecuteProcess(
+    #         cmd= [ os.path.join( coppelia_path, "coppeliaSim" ), "-f", os.path.join( package_dir, "coppelia", "whisker_scene.ttt" ) ]
+    #     )
+    # );
 
     # Return our launch description we've generated
     return ld;

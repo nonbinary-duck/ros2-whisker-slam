@@ -26,13 +26,12 @@
 namespace ros2_whisker_slam
 {
     /**
-     * @brief An extremely rudimentary controller for our little bubble robot
+     * @brief A reactive controller for our little bubble robot
      */
     class SimpleController : public rclcpp::Node
     {
         public:
-            // Do all of the setup for our node in a nice and untidy inline constructor,
-            // entirely defeating the organisational power provided by objects
+
             inline SimpleController() : Node("simple_controller")
             {
                 // Seed our random number generator with non-deterministic random values
@@ -132,61 +131,13 @@ namespace ros2_whisker_slam
                             }
                         }
                         
-                        
-
+                        // Publish our motor commands
                         this->motorVelPub->publish(cmdVel);
-                        // // If we've collided with something, turn left
-                        // // ... and continue to rotate left for IMPACT_ADJUST_TIME
-                        // if (msg->data || this->simTime - this->previousImpact < SimpleController::IMPACT_ADJUST_TIME)
-                        // {
-                        //     // Check if this impact is after the previous impact time
-                        //     if (this->previousImpact + SimpleController::IMPACT_ADJUST_TIME < this->simTime)
-                        //     {
-                        //         // If we're dealing with a new impact, record the incident
-                        //         this->previousImpact = this->simTime;
-                        //         // Record to the console for debugging purposes
-                        //         RCLCPP_INFO(this->get_logger(), "New collision detected...");
-                        //     }
-
-
-                        //     // Move left for IMPACT_ADJUST_TIME
-                        //     // This truly is a simple controller, it's just to get the robot moving to test other elements
-                        //     RCLCPP_INFO(this->get_logger(), "Rotating for '%f' seconds", SimpleController::IMPACT_ADJUST_TIME - (this->simTime - this->previousImpact));
-                        //     // Set the speed of the left motor to -4.5
-                        //     std_msgs::msg::Float32 msg; msg.data = -4.5;
-                        //     this->leftMotorPub->publish(msg);
-                        //     // Set the speed of the right motor to 4.5
-                        //     // Seemingly we publish a package which contains a complete copy of the message rather than a reference to it
-                        //     msg.data = 4.5;
-                        //     this->rightMotorPub->publish(msg);
-                        // }
-                        // else
-                        // {
-                        //     // Business as usual
-                        //     // More debug logging
-                        //     RCLCPP_INFO(this->get_logger(), "Moving forward");
-                        //     // Maintain a default state of moving forward by this fixed amount
-                        //     std_msgs::msg::Float32 msg; msg.data = 3.0;
-                        //     this->leftMotorPub->publish(msg);
-                        //     this->rightMotorPub->publish(msg);
-                        // }
-                        
                     }
                 );
 
-                // (this is unbelievably still the constructor btw)
-                // Give us a publisher to send updates to the motor
-                // this->leftMotorPub  = this->create_publisher<std_msgs::msg::Float32>("leftMotorSpeed", 10);
-                // this->rightMotorPub = this->create_publisher<std_msgs::msg::Float32>("rightMotorSpeed", 10);
+                // Setup our publisher for speed
                 this->motorVelPub = this->create_publisher<interfaces::msg::F64vel4>("/motorControl", 10);
-
-                // And give an inital state of zero speed for our motors
-                // std_msgs::msg::Float32 msg; msg.data = 0.0;
-
-                // // Publish this inital state
-                // this->leftMotorPub->publish(msg);
-                // this->rightMotorPub->publish(msg);
-
             }
 
         private:
