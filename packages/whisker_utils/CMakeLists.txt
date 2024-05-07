@@ -38,6 +38,13 @@ target_compile_features(reactive_controller PUBLIC c_std_23 cxx_std_23)
 install(TARGETS reactive_controller
     DESTINATION lib/${PROJECT_NAME})
 
+# Install launch files
+install(DIRECTORY
+    launch
+    DESTINATION share/${PROJECT_NAME}/
+)
+
+
 if(BUILD_TESTING)
     find_package(ament_lint_auto REQUIRED)
     # the following line skips the linter which checks for copyrights

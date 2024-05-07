@@ -7,5 +7,8 @@
         "string_view": "cpp",
         "mutex": "cpp",
         "iostream": "cpp"
-    }
+    },
+    "cSpell.words": [
+        "lidar"
+    ]
 }
