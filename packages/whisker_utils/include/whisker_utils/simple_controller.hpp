@@ -54,7 +54,7 @@ namespace ros2_whisker_slam
                 );
 
                 // Setup the listener for the sensor
-                this->whiskerLidar = this->create_subscription< sensor_msgs::msg::LaserScan >(
+                this->cmdVelSub = this->create_subscription< sensor_msgs::msg::LaserScan >(
                     // The topic to subscribe to
                     "scan",
                     // qos?
@@ -191,7 +191,7 @@ namespace ros2_whisker_slam
 
         private:
             // Assign our subscriptions and publishers on the class's stack since this is just a testing dummy controller
-            rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr whiskerLidar;
+            rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr cmdVelSub;
             rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr simTimeSubscription;
             rclcpp::Publisher<interfaces::msg::F64vel4>::SharedPtr motorVelPub;
 

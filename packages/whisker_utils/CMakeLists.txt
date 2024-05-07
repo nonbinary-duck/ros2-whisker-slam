@@ -23,7 +23,7 @@ find_package(interfaces REQUIRED)
 # Executables and libraries
 #
 
-# Add our nodes for ros2 run...
+# Add our reactive controller
 add_executable(reactive_controller src/reactive_controller.cpp)
 ament_target_dependencies(reactive_controller rclcpp std_msgs sensor_msgs interfaces)
 
@@ -34,14 +34,36 @@ target_include_directories(reactive_controller PUBLIC
 
 # Require some basic minimum level of C
 target_compile_features(reactive_controller PUBLIC c_std_23 cxx_std_23)
+# Copy binaries
+install(TARGETS reactive_controller DESTINATION lib/${PROJECT_NAME})
 
-install(TARGETS reactive_controller
-    DESTINATION lib/${PROJECT_NAME})
 
-# Install launch files
-install(DIRECTORY
-    launch
-    DESTINATION share/${PROJECT_NAME}/
+# Add our cmd_vel controller
+add_executable(cmdvel_controller src/cmdvel_controller.cpp)
+ament_target_dependencies(cmdvel_controller rclcpp geometry_msgs interfaces)
+
+# Add the include directory to our executables
+target_include_directories(cmdvel_controller PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/whisker_utils>
+    $<INSTALL_INTERFACE:include>)
+
+# Require some basic minimum level of C
+target_compile_features(cmdvel_controller PUBLIC c_std_23 cxx_std_23)
+# Copy binaries
+install(TARGETS cmdvel_controller DESTINATION lib/${PROJECT_NAME})
+
+
+
+#
+# Copying misc files
+#
+
+install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
+
+# Install param and misc files
+install(DIRECTORY params DESTINATION share/${PROJECT_NAME}/
+    DIRECTORY rviz DESTINATION share/${PROJECT_NAME}/
+    DIRECTORY coppelia DESTINATION share/${PROJECT_NAME}/
 )
 
 
