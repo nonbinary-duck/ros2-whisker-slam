@@ -63,7 +63,7 @@ def generate_launch_description():
             ]),
             launch_arguments={
                 "use_sim_time": "True",
-                "slam_params_file": os.path.join( package_dir, "params", "mapper_params_online_async.yaml" )
+                "slam_params_file": os.path.join( package_dir, "params", "whisker_mapper_params_online_async.yaml" )
             }.items(),
             # Use this launcher if we're using the whisker
             condition=IfCondition(

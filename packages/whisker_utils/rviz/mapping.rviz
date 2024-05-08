@@ -7,6 +7,7 @@ Panels:
         - /Global Options1
         - /TF1/Frames1
         - /TF1/Tree1
+        - /LaserScan1
       Splitter Ratio: 0.5833333134651184
     Tree Height: 335
   - Class: rviz_common/Selection
@@ -87,6 +88,8 @@ Visualization Manager:
           Value: true
         base_link:
           Value: true
+        groundTruthLiDAR:
+          Value: true
         map:
           Value: true
         odom:
@@ -111,6 +114,8 @@ Visualization Manager:
                   {}
                 RRMotor:
                   {}
+                groundTruthLiDAR:
+                  {}
                 whiskArr:
                   {}
       Update Interval: 0
@@ -118,14 +123,14 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 10
-        Min Value: -10
+        Max Value: 0.05510983243584633
+        Min Value: 0.05466748774051666
         Value: true
       Axis: Z
       Channel Name: intensity
       Class: rviz_default_plugins/LaserScan
-      Color: 255; 255; 255
-      Color Transformer: Intensity
+      Color: 255; 0; 0
+      Color Transformer: FlatColor
       Decay Time: 0
       Enabled: true
       Invert Rainbow: false
@@ -345,7 +350,7 @@ Visualization Manager:
             Reliability Policy: Reliable
             Value: /global_costmap/published_footprint
           Value: false
-      Enabled: true
+      Enabled: false
       Name: Global Planner
     - Class: rviz_common/Group
       Displays:
@@ -562,26 +567,21 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Class: rviz_default_plugins/Orbit
-      Distance: 10.740096092224121
+      Angle: 0
+      Class: rviz_default_plugins/TopDownOrtho
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
-      Focal Point:
-        X: -0.5576848387718201
-        Y: -0.6208295822143555
-        Z: -0.0007617063238285482
-      Focal Shape Fixed Size: true
-      Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.8047970533370972
+      Scale: 122.43888854980469
       Target Frame: <Fixed Frame>
-      Value: Orbit (rviz_default_plugins)
-      Yaw: 4.3923821449279785
+      Value: TopDownOrtho (rviz_default_plugins)
+      X: 0
+      Y: 0
     Saved: ~
 Window Geometry:
   Displays:
