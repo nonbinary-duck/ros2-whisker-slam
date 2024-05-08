@@ -3,4 +3,4 @@
 	url = ../ros2-interfaces.git
 [submodule "packages/sim_ros2_interface"]
 	path = packages/sim_ros2_interface
-	url = git@github.com:nonbinary-duck/simROS2.git
+	url = ../simROS2.git
