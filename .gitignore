@@ -4,6 +4,7 @@ install
 build
 log
 
+**/.ipynb_checkpoints/
 
 # Misc
 
