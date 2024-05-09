@@ -1,0 +1,8 @@
+# Ignore the data collected with the whisker project since
+# I don't know what they wanted to do with it
+#
+# Also it's 84MB, so I'd have to use gzip and at that point
+# it really isn't an object that Git or GitHub would be
+# happy about tracking
+21mm_from_top_0_to_20_mm_1mm_step_10_ish_samples.csv
+
