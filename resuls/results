@@ -1681,3 +1681,126 @@ Pixel difference between ground_truth_crop and gt_corrected_crop: 4
 
 >> 
 >> diary results 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> evaluate
+
+============
+= Metrics  =
+============
+
+Precision: 0.323370
+Recall:    0.476000
+Accuracy:  0.874339
+F1-score:  0.385113
+
+============
+= Raw Data =
+============
+
+Count of ground-truth cells: 500
+Count of observed cells:     736
+
+True positive:  238
+False positive: 498
+True negative:  5050
+False negative: 262
+
+Pixel difference between ground_truth_crop and gt_corrected_crop: 4
+
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> evaluate
+
+============
+= Metrics  =
+============
+
+Precision: 0.323370
+Recall:    0.476000
+Accuracy:  0.874339
+F1-score:  0.385113
+
+============
+= Raw Data =
+============
+
+Count of ground-truth cells: 500
+Count of observed cells:     736
+
+True positive:  238
+False positive: 498
+True negative:  5050
+False negative: 262
+
+Pixel difference between ground_truth_crop and gt_corrected_crop: 4
+
+>> 
